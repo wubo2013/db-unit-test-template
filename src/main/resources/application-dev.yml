@@ -1,0 +1,10 @@
+spring:
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    url: jdbc:mysql:loadbalance://127.0.0.1:3306/db2022?useUnicode=true&characterEncoding=UTF-8
+    username: root
+    password: 123456
+debug: true
+logging:
+  level:
+    com.wubo.test.dao: debug
