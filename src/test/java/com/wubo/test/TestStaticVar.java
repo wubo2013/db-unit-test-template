@@ -1,5 +1,7 @@
 package com.wubo.test;
 
+import cn.hutool.core.lang.func.LambdaUtil;
+import cn.hutool.core.util.ReflectUtil;
 import com.baomidou.mybatisplus.core.toolkit.LambdaUtils;
 import com.baomidou.mybatisplus.core.toolkit.support.SFunction;
 import com.wubo.test.constant.AppConstant;
@@ -10,7 +12,9 @@ import org.junit.Test;
 import org.springframework.test.util.ReflectionTestUtils;
 
 import java.lang.invoke.SerializedLambda;
+import java.lang.reflect.Field;
 import java.lang.reflect.Method;
+import java.util.HashMap;
 import java.util.function.Function;
 
 @Slf4j
@@ -49,5 +53,20 @@ public class TestStaticVar extends TestApplicationTests{
         SerializedLambda serializedLambda = doSFunction(TeacherEntity::getTname);
         log.info("method-> {}" , serializedLambda.getImplMethodName());
         log.info("class->{}" , serializedLambda.getImplClass());
+
+        log.info("hutool method->{}" , LambdaUtil.getMethodName(TeacherEntity::getTname));
+        log.info("hutool field->{}" , LambdaUtil.getFieldName(TeacherEntity::getTname));
+
+        String methodName = serializedLambda.getImplMethodName();
+
+        TeacherEntity teacherEntity1 = new TeacherEntity();
+        teacherEntity1.setTname("12321 t name is new");
+
+        Method methodByName = ReflectUtil.getMethodByName(TeacherEntity.class, methodName);
+
+        // 缓存
+
     }
+
+
 }
